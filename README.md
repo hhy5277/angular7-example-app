@@ -6,7 +6,7 @@
   <h3 align="center">Angular Example App</h3>
 
   <p align="center">
-    Example app with Angular 7 + Angular CLI + Angular Universal + i18n + Firebase
+    Example app with Angular 8 + Angular CLI + Angular Universal + i18n + Firebase
     <br>
     <br>
     :clap::clap::tada::tada::tada::tada::clap::clap:
@@ -22,9 +22,9 @@
     </a>
     <br>
     <br>
-    <a href="https://github.com/Ismaestro/angular7-example-app/issues/new">Report bug</a>
+    <a href="https://github.com/Ismaestro/angular8-example-app/issues/new">Report bug</a>
     ·
-    <a href="https://github.com/Ismaestro/angular7-example-app/issues/new">Request feature</a>
+    <a href="https://github.com/Ismaestro/angular8-example-app/issues/new">Request feature</a>
   </p>
 </p>
 
@@ -42,46 +42,52 @@
 
 ## Status
 
-![travis](https://travis-ci.org/Ismaestro/angular7-example-app.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/Ismaestro/angular7-example-app/badge.svg?branch=master)](https://coveralls.io/github/Ismaestro/angular7-example-app?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9d190a60fc864060ac054ba17a4e92e4)](https://www.codacy.com/app/Ismaestro/angular7-example-app?utm_source=github.com&utm_medium=referral&utm_content=Ismaestro/angular7-example-app&utm_campaign=badger)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-[![dependency Status](https://david-dm.org/ismaestro/angular7-example-app.svg)](https://david-dm.org/ismaestro/angular7-example-app#info=dependencies)
-[![devDependency Status](https://david-dm.org/ismaestro/angular7-example-app/dev-status.svg)](https://david-dm.org/ismaestro/angular7-example-app#info=devDependencies)
-[![peerDependencies Status](https://david-dm.org/ismaestro/angular7-example-app/peer-status.svg)](https://david-dm.org/ismaestro/angular7-example-app?type=peer)
+![travis](https://travis-ci.org/Ismaestro/angular8-example-app.svg?branch=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Ismaestro_angular8-example-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=Ismaestro_angular8-example-app)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Ismaestro_angular8-example-app&metric=coverage)](https://sonarcloud.io/dashboard?id=Ismaestro_angular8-example-app)
+[![dependency Status](https://david-dm.org/ismaestro/angular8-example-app.svg)](https://david-dm.org/ismaestro/angular8-example-app#info=dependencies)
+[![devDependency Status](https://david-dm.org/ismaestro/angular8-example-app/dev-status.svg)](https://david-dm.org/ismaestro/angular8-example-app#info=devDependencies)
+[![peerDependencies Status](https://david-dm.org/ismaestro/angular8-example-app/peer-status.svg)](https://david-dm.org/ismaestro/angular8-example-app?type=peer)
 [![npm](https://img.shields.io/badge/demo-online-brightgreen.svg)](http://angularexampleapp.com/)
 
-[![GitHub stars](https://img.shields.io/github/stars/ismaestro/angular7-example-app.svg?style=social&label=Star)](https://github.com/ismaestro/angular7-example-app)
-[![GitHub forks](https://img.shields.io/github/forks/ismaestro/angular7-example-app.svg?style=social&label=Fork)](https://github.com/ismaestro/angular7-example-app/fork)
+[![GitHub stars](https://img.shields.io/github/stars/ismaestro/angular8-example-app.svg?style=social&label=Star)](https://github.com/ismaestro/angular8-example-app)
+[![GitHub forks](https://img.shields.io/github/forks/ismaestro/angular8-example-app.svg?style=social&label=Fork)](https://github.com/ismaestro/angular8-example-app/fork)
 
 ## What's included
 
-* CRUD: create, update and remove heroes with Firebase
-* Angular Universal (SSR)
-* Internationalization with the official i18n. Separated builds for english and spanish.
-* Lazy loading modules
-* More logical directory structure (from [here](https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de65ec7))
-* Basic example library
-* Following the [best practices](https://angular.io/guide/styleguide)!
-* Search bar, to look for heroes
-* Custom loading page
-* Lazy loading images with [ngx-progressive-image-loader](https://github.com/maxisam/ngx-progressive-image-loader)
-* Modal and toasts (snakbar)!
-* Scroll restoration and anchor examples
-* Responsive layout (flex layout module)
-* SASS (most common used functions and mixins) and BEM styles
-* Animations with [ng-animate](https://jiayihu.github.io/ng-animate/)
-* Angular Pipes
-* Interceptors and Events (Progress bar active, if a request is pending)
-* Scroll to first invalid input in forms. ([ngx-scroll-to-first-invalid](https://github.com/Ismaestro/ngx-scroll-to-first-invalid))
-* Modernizr (browser features detection)
-* Browser filter (Bowser) because of IE ^^
-* [Sentry](https://sentry.io)! (logs every error in the app)
-* Google Tag Manager
-* ES6 Promises and Observables
-* Unit tests with Jasmine and Karma including code coverage (Use of [ng-bullet](https://www.npmjs.com/package/ng-bullet), [karma-mocha-reporter](https://github.com/litixsoft/karma-mocha-reporter)) and [ng-mocks](https://github.com/ike18t/ng-mocks)
-* End-to-end tests with Protractor
+- [x] CRUD: create, update and remove heroes with Firebase
+- [x] Angular Universal (SSR)
+- [x] Use of [preboot](https://github.com/angular/preboot) module to share state between browser and server
+- [x] Security Headers using [helmet](https://helmetjs.github.io). Report [here](https://securityheaders.com/?q=https%3A%2F%2Fwww.angularexampleapp.com).
+- [x] Internationalization with the official i18n. Separated builds for english and spanish.
+- [x] Lazy loading modules
+- [x] Service Workers enabled!
+- [x] Example of Angular Resolver for Hero Detail
+- [x] More logical directory structure (from [here](https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de65ec7))
+- [x] Basic example library
+- [x] Following the [best practices](https://angular.io/guide/styleguide)!
+- [x] Search bar, to look for heroes
+- [x] Custom loading page
+- [x] Lazy loading images with [ng-lazyload-image](https://github.com/tjoskar/ng-lazyload-image)
+- [x] Modal and toasts (snakbar)!
+- [x] Scroll restoration and anchor examples
+- [x] Responsive layout (flex layout module)
+- [x] SASS (most common used functions and mixins) and BEM styles
+- [x] Animations with [ng-animate](https://jiayihu.github.io/ng-animate/)
+- [x] Angular Pipes
+- [x] Interceptors and Events (Progress bar active, if a request is pending)
+- [x] Scroll to first invalid input in forms. ([ngx-scroll-to-first-invalid](https://github.com/Ismaestro/ngx-scroll-to-first-invalid))
+- [x] Modernizr (browser features detection)
+- [x] Browser filter (Bowser) because of IE ^^
+- [x] [Sentry](https://sentry.io)! (logs every error in the app)
+- [x] Google Tag Manager
+- [x] ES6 Promises and Observables
+- [x] Unit tests with Jasmine and Karma including code coverage. Use of [ng-bullet](https://www.npmjs.com/package/ng-bullet), [karma-mocha-reporter](https://github.com/litixsoft/karma-mocha-reporter) and [ng-mocks](https://github.com/ike18t/ng-mocks)
+- [x] End-to-end tests with Protractor
 
+### Angular Ivy
+
+This project is using version 8 of angular but Ivy is not enabled. I'm trying to do it, but some errors appear during this process. I would accept any pull request about this because no one till now knows what to do...
 
 ### Angular Universal and i18n
 
@@ -94,11 +100,22 @@ I've created a medium post where you can find a tutorial to apply this concepts 
 
 This repo is using Firebase. We use Cloud Firestore and Cloud Storage to handle CRUD operations over the heroes and to store their images. Also Hosting and Functions to deploy the app with Universal.
 
+## Travis CI
+
+We use Travis CI to run this tasks in order:
+* Linter
+* Unit tests
+* End to end tests
+* Build for production of browser and server
+* Validate that server generated using curl
+* Sonar
+* Deploy to Firebase
+
 ## Quick start
 
-**Warning**
+**WARNING**
 
-> Verify that you are running at least node 8.9.x and npm 5.x.x by running node -v and npm -v in a terminal/console window. Older versions produce errors, but newer versions are fine.
+> Verify that you are running node 10.16.0 by running node -v in a terminal/console window. Older versions produce errors, but newer versions are fine.
 
  ```bash
  npm i
@@ -122,6 +139,8 @@ npm run build:server:prod   | Build the server version for production
 npm run compile:server      | Compiles the server with webpack
 npm run build:ssr           | Complete task with all the build subtasks for SSR
 npm run build:library       | Build the library
+npm run serve:ssr           | Start the node server for angular universal
+npm run validate:server     | Script that validate if server generated previously starts without error
 npm run bundle-report       | Build and run webpack-bundle-analyzer over stats json
 npm run release:minor       | Create a new minor release using standard-version
 npm run release:major       | Create a new major release using standard-version
@@ -130,15 +149,15 @@ npm run deploy              | Build the app and deploy it to firebase hosting
 
 ## Bugs and feature requests
 
-Have a bug or a feature request? Please first read the [issue guidelines](https://github.com/Ismaestro/angular7-example-app/blob/master/CONTRIBUTING.md) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/Ismaestro/angular7-example-app/issues/new).
+Have a bug or a feature request? Please first read the [issue guidelines](https://github.com/Ismaestro/angular8-example-app/blob/master/CONTRIBUTING.md) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/Ismaestro/angular8-example-app/issues/new).
 
 ## Contributing
 
-Please read through our [contributing guidelines](https://github.com/Ismaestro/angular7-example-app/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+Please read through our [contributing guidelines](https://github.com/Ismaestro/angular8-example-app/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
 Moreover, all HTML and CSS should conform to the [Code Guide](https://github.com/mdo/code-guide), maintained by [Ismael Ramos](https://github.com/ismaestro).
 
-Editor preferences are available in the [editor config](https://github.com/Ismaestro/angular7-example-app/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
+Editor preferences are available in the [editor config](https://github.com/Ismaestro/angular8-example-app/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
 
 ## Creators
 
@@ -146,7 +165,7 @@ Editor preferences are available in the [editor config](https://github.com/Ismae
 
 - <https://github.com/ismaestro>
 
-<a href='https://ko-fi.com/S6S5LMVR' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href="https://www.buymeacoffee.com/ismaestro" target="_blank"><img src="http://i65.tinypic.com/2rx8kn8.jpg" border="0" alt="Buy Me A Coffee"></a>
 
 ## Thanks
 
@@ -157,6 +176,6 @@ I'm always happy to hear your feedback!
 
 ## Copyright and license
 
-Code and documentation copyright 2018 the authors. Code released under the [MIT License](https://github.com/Ismaestro/angular7-example-app/blob/master/LICENSE).
+Code and documentation copyright 2018 the authors. Code released under the [MIT License](https://github.com/Ismaestro/angular8-example-app/blob/master/LICENSE).
 
 Enjoy :metal:

@@ -1,11 +1,11 @@
 import {Component, Inject, LOCALE_ID, OnInit, PLATFORM_ID, Renderer2} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {NavigationEnd, Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
-import {AppConfig} from './configs/app.config';
-import {UtilsHelperService} from './core/services/utils-helper.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UtilsHelperService} from './shared/services/utils-helper.service';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {I18n} from '@ngx-translate/i18n-polyfill';
+import {RoutesConfig} from './configs/routes.config';
 
 declare const Modernizr;
 
@@ -23,8 +23,10 @@ export class AppComponent implements OnInit {
               private snackBar: MatSnackBar,
               private router: Router,
               private i18n: I18n,
-              @Inject(DOCUMENT) doc: Document, @Inject(LOCALE_ID) locale: string, renderer: Renderer2,
-              @Inject(PLATFORM_ID) private platformId: Object) {
+              private renderer: Renderer2,
+              @Inject(DOCUMENT) doc: Document,
+              @Inject(LOCALE_ID) locale: string,
+              @Inject(PLATFORM_ID) private platformId: object) {
     if (isPlatformBrowser(this.platformId)) {
       this.isOnline = navigator.onLine;
       renderer.setAttribute(doc.documentElement, 'lang', locale);
@@ -50,7 +52,7 @@ export class AppComponent implements OnInit {
               content: this.i18n({value: 'Home meta description', id: '@@homeMetaDescription'})
             });
             break;
-          case '/' + AppConfig.routes.heroes:
+          case '/' + RoutesConfig.routesNames.heroes.basePath:
             this.title.setTitle('Heroes list');
             this.meta.updateTag({
               name: 'description',

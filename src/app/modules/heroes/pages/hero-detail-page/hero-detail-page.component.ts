@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Hero} from '../../shared/hero.model';
-import {HeroService} from '../../shared/hero.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {AppConfig} from '../../../../configs/app.config';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {fadeIn} from 'ng-animate';
+import {RoutesConfig} from '../../../../configs/routes.config';
 
 @Component({
   selector: 'app-hero-detail-page',
@@ -22,17 +21,13 @@ export class HeroDetailPageComponent implements OnInit {
 
   hero: Hero;
 
-  constructor(private heroService: HeroService,
-              private location: Location,
+  constructor(private location: Location,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    const heroId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.heroService.getHero(heroId).subscribe((hero: Hero) => {
-      this.hero = hero;
-    });
+    this.hero = this.activatedRoute.snapshot.data.hero;
   }
 
   goBack(): void {
@@ -40,6 +35,6 @@ export class HeroDetailPageComponent implements OnInit {
   }
 
   goToTheAnchor(): void {
-    this.router.navigate([`/${AppConfig.routes.heroes}/${this.hero.id}`], {fragment: 'heroe-detail'});
+    this.router.navigate([RoutesConfig.routes.heroes.detail(this.hero.id)], {fragment: 'heroe-detail'});
   }
 }

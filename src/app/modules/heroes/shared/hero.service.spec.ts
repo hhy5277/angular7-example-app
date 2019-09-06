@@ -4,14 +4,18 @@ import {Hero} from './hero.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {configureTestSuite} from 'ng-bullet';
 import {FirebaseModule} from '../../../shared/modules/firebase.module';
-import {MatSnackBar} from '@angular/material';
-import {TRANSLATIONS, TRANSLATIONS_FORMAT} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {I18n} from '@ngx-translate/i18n-polyfill';
+import {CookieService} from 'ngx-cookie';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {of, throwError} from 'rxjs';
 
 describe('HeroService', () => {
   const heroId = 'BzTvl77YsRTtdihH0jeh';
   let heroService: HeroService;
-  const matSnackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open', 'dismiss']);
+
+  const matSnackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open', 'dismiss', 'showSnackBar']);
+  const afsSpy = jasmine.createSpyObj('AngularFirestore', ['doc', 'collection', 'delete']);
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
@@ -19,12 +23,52 @@ describe('HeroService', () => {
         FirebaseModule
       ],
       providers: [
+        {provide: AngularFirestore, useValue: afsSpy},
         {provide: MatSnackBar, useValue: matSnackBarSpy},
-        {provide: TRANSLATIONS, useValue: require(`raw-loader!./../../../../i18n/messages.en.xlf`)},
-        {provide: TRANSLATIONS_FORMAT, useValue: 'xlf'},
-        I18n,
+        {
+          provide: CookieService, useValue: {
+            get: () => 0
+          }
+        },
+        {
+          provide: I18n, useValue: () => {
+          }
+        },
         HeroService
       ]
+    });
+  });
+
+  beforeEach(() => {
+    afsSpy.doc.and.returnValue({
+      update: () => new Promise((resolve) => resolve()),
+      get: () => of({
+        data: () => new Hero({
+          id: heroId,
+          name: 'test',
+          alterEgo: 'test'
+        })
+      }),
+      delete: () => new Promise((resolve) => resolve())
+    });
+
+    afsSpy.collection.and.returnValue({
+      add: () => new Promise((resolve) => resolve()),
+      snapshotChanges: () => of([
+        {
+          payload: {
+            doc: {
+              id: 'asd',
+              data: () => {
+                return {
+                  id: 'noid',
+                  name: 'test'
+                };
+              }
+            }
+          }
+        }
+      ])
     });
 
     heroService = TestBed.get(HeroService);
@@ -36,6 +80,12 @@ describe('HeroService', () => {
     });
   }));
 
+  it('should get heroes', (() => {
+    heroService.getHeroes().subscribe((heroes: Hero[]) => {
+      expect(heroes.length).toBe(1);
+    });
+  }));
+
   it('should fail getting hero by no id', (() => {
     heroService.getHero('noId').subscribe(() => {
     }, (error) => {
@@ -43,13 +93,51 @@ describe('HeroService', () => {
     });
   }));
 
-  it('should fail creating empty hero', (() => {
+  it('should create a hero', (() => {
     heroService.createHero(new Hero({
-      'name': 'test',
-      'alterEgo': 'test'
+      name: 'test',
+      alterEgo: 'test'
     })).then(() => {
+      expect(afsSpy.collection).toHaveBeenCalled();
+    });
+  }));
+
+  it('should update hero', (() => {
+    heroService.updateHero(new Hero({
+      name: 'test',
+      alterEgo: 'test'
+    })).then(() => {
+      expect(afsSpy.doc).toHaveBeenCalled();
+    });
+  }));
+
+  it('should delete hero', (() => {
+    heroService.deleteHero('oneId').then(() => {
+      expect(afsSpy.doc).toHaveBeenCalled();
+    });
+  }));
+
+  it('should check if user can vote', (() => {
+    expect(heroService.checkIfUserCanVote()).toBe(true);
+  }));
+
+  it('should fail getting one hero', (() => {
+    afsSpy.doc.and.returnValue({
+      get: () => throwError({message: 'this is an error', status: 404})
+    });
+
+    heroService.getHero('asd').subscribe(() => {
     }, (error) => {
-      expect(error).toEqual(jasmine.any(HttpErrorResponse));
+      expect(error.status).toBe(404);
+    });
+
+    afsSpy.doc.and.returnValue({
+      get: () => throwError({message: 'this is an error', status: 500})
+    });
+
+    heroService.getHero('internal error').subscribe(() => {
+    }, (error) => {
+      expect(error.status).toBe(500);
     });
   }));
 });

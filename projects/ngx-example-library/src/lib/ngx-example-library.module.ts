@@ -10,13 +10,11 @@ export interface SampleModuleOptions {
 
 export function initialize(options: any) {
   console.log('Angular library has started with this options: ', options);
-  return function () {
+  return () => {
   };
 }
 
 @NgModule({
-  imports: [
-  ],
   declarations: [
     NgxExampleLibraryComponent
   ],

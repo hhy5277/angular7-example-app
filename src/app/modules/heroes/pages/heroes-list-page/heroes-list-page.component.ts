@@ -1,16 +1,17 @@
-import {Component, Inject, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {Hero} from '../../shared/hero.model';
 import {HeroService} from '../../shared/hero.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
-import {AppConfig} from '../../../../configs/app.config';
-import {UtilsHelperService} from '../../../../core/services/utils-helper.service';
+import {UtilsHelperService} from '../../../../shared/services/utils-helper.service';
 import {HeroRemoveComponent} from '../../components/hero-remove/hero-remove.component';
-import {isPlatformBrowser} from '@angular/common';
 import {I18n} from '@ngx-translate/i18n-polyfill';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {fadeIn} from 'ng-animate';
+import {ROUTES_CONFIG} from '../../../../configs/routes.config';
+import {CookieService} from 'ngx-cookie';
 
 @Component({
   selector: 'app-heroes-list-page',
@@ -30,7 +31,7 @@ export class HeroesListPageComponent implements OnInit {
   canVote = false;
   error: boolean;
 
-  @ViewChild('form') myNgForm; // just to call resetForm method
+  @ViewChild('form', {static: false}) myNgForm; // just to call resetForm method
 
   constructor(private heroService: HeroService,
               private dialog: MatDialog,
@@ -38,12 +39,13 @@ export class HeroesListPageComponent implements OnInit {
               private router: Router,
               private i18n: I18n,
               private formBuilder: FormBuilder,
-              @Inject(PLATFORM_ID) private platformId: Object) {
+              private cookieService: CookieService,
+              @Inject(ROUTES_CONFIG) public routesConfig: any) {
     this.canVote = this.heroService.checkIfUserCanVote();
 
     this.newHeroForm = this.formBuilder.group({
-      'name': new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      'alterEgo': new FormControl('', [Validators.required, Validators.maxLength(30)])
+      name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      alterEgo: new FormControl('', [Validators.required, Validators.maxLength(30)])
     });
 
     this.onChanges();
@@ -70,9 +72,7 @@ export class HeroesListPageComponent implements OnInit {
     this.canVote = this.heroService.checkIfUserCanVote();
     if (this.canVote) {
       hero.like();
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('votes', '' + (Number(localStorage.getItem('votes')) + 1));
-      }
+      this.cookieService.put('votes', '' + (Number(this.cookieService.get('votes') || 0) + 1));
       this.heroService.updateHero(hero);
     } else {
       this.snackBar.open(this.i18n({value: 'Can\'t vote anymore', id: '@@cannotVote'}), '', {duration: 1000});
@@ -92,10 +92,8 @@ export class HeroesListPageComponent implements OnInit {
     });
   }
 
-  seeHeroDetails(hero): void {
-    if (hero.default) {
-      this.router.navigate([AppConfig.routes.heroes + '/' + hero.id]);
-    }
+  trackByFn(index: any) {
+    return index;
   }
 
   private onChanges() {

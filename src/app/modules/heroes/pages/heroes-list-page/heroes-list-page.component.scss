@@ -1,5 +1,9 @@
-@import "../../../../styles/mixins";
-@import "../../../../styles/colors";
+@import "../../../../shared/styles/mixins";
+@import "../../../../shared/styles/colors";
+
+a {
+  @include text-small-grey();
+}
 
 #loading-list {
   p {
@@ -33,7 +37,7 @@
   @include push--auto();
   display: table;
 
-  /deep/ .mat-list-text {
+  .mat-list-text {
     text-align: left !important;
   }
 }
